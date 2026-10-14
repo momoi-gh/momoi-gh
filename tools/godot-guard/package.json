@@ -1,0 +1,23 @@
+{
+  "name": "godot-guard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cline plugin: Godot headless check tool + guard hooks for the top-down RPG project.",
+  "cline": {
+    "plugins": [
+      {
+        "paths": ["./index.ts"],
+        "capabilities": ["tools", "hooks"]
+      }
+    ]
+  },
+  "peerDependencies": {
+    "@cline/sdk": "*"
+  },
+  "peerDependenciesMeta": {
+    "@cline/sdk": {
+      "optional": true
+    }
+  }
+}

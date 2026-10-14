@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Cline plugin deps (godot-guard)
+node_modules/
+tools/godot-guard/node_modules/
