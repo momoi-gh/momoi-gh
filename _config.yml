@@ -3,4 +3,4 @@ title: 我的项目站点
 description: 项目文档或展示页
 
 # 关键配置：项目站点必须设置 baseurl
-baseurl: "/my-project-site"  # 替换为你的实际仓库名
+baseurl: "/momoi-gh"  # 替换为你的实际仓库名
