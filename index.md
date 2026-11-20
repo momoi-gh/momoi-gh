@@ -2,4 +2,4 @@
 layout: default
 title: 首页
 ---
-[[DDL]]
+[查看指南](orasql/DDL.md)
