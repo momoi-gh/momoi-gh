@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "engineVersion": "1.1.1",
   "site": {
-    "title": "Obsidian GitHubPage 演示与发布指南",
+    "title": "momoi-gh wiki 知识库",
     "baseUrl": "https://momoi-gh.github.io/momoi-gh",
     "language": "zh-CN"
   },

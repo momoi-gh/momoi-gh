@@ -1,6 +1,3 @@
-[[index]]
-
-[首页](../index)
 
 #CREATE
 --
@@ -67,6 +64,7 @@ FROM emp e
 JOIN dept d ON e.deptno = d.deptno;
 join 添加 on 限定
 ```
+join 添加[^1] on 限定[^2]
 
 ---
 
@@ -84,11 +82,13 @@ join 添加 on 限定
 #聚合函数
 --
 
+```sql
 SELECT deptno, AVG(sal) AS avg_sal, MAX(sal) AS max_sal, MIN(sal) AS min_sal
 FROM emp
 GROUP BY deptno
 HAVING AVG(sal) > 2000;
-
+```
+as 别名,emp e也是别名的一种 [^3]，GROUP BY deptno **按 `deptno` 分组** [^4]。 having 判断[^5]
 
 
 ---
@@ -98,8 +98,9 @@ HAVING AVG(sal) > 2000;
 
 查询有员工的部门：
 
-sql
 
+
+```sql
 SELECT d.dname
 FROM dept d
 WHERE EXISTS (
@@ -107,13 +108,16 @@ WHERE EXISTS (
     FROM emp e
     WHERE e.deptno = d.deptno
 );
+```
+SELECT 1 返回1
+[^7]`EXISTS` 用来判断子查询是否返回至少一行数据判断返回true/flase
 
 ### 3.7 子查询：相关子查询
 
 查询工资高于本部门平均工资的员工：
 
-sql
 
+```sql
 SELECT e.ename, e.sal, e.deptno
 FROM emp e
 WHERE e.sal > (
@@ -121,8 +125,10 @@ WHERE e.sal > (
     FROM emp
     WHERE deptno = e.deptno
 );
+```
 #IN子查询
 --
+```sql
 SELECT ename, deptno
 FROM emp
 WHERE deptno IN (
@@ -130,21 +136,25 @@ WHERE deptno IN (
     FROM dept
     WHERE loc = 'NEW YORK'
 );
+```
+[^8]`IN` 会把它当作集合来理解 比如：{10, 20, 30}
 
 ---
 
 #标量子查询
 --
+```sql
 SELECT ename,
        sal,
        (SELECT AVG(sal) FROM emp) AS avg_all_sal
 FROM emp;
+```
 
 ---
 
 #ALTER/DROP
 --
-### ALTER：增加列**ADD**
+### ALTER[^6]：增加列**ADD**
 
 
 ```sql
@@ -175,3 +185,22 @@ ALTER TABLE emp DROP COLUMN email;
 DROP TABLE emp;
 DROP TABLE dept;
 ```
+
+#注脚
+--
+
+[^1]: join 添加
+
+[^2]: on 限定
+
+[^3]: as 别名,emp e也是别名的一种
+
+[^4]: GROUP BY deptno **按 `deptno` 分组**
+
+[^5]: having判断
+
+[^6]: 对table进行修改，alter table 表 add/modify/drop
+
+[^7]: `EXISTS` 用来判断子查询是否返回至少一行数据
+
+[^8]: `IN` 会把它当作集合来理解 比如：{10, 20, 30}
