@@ -1,5 +1,7 @@
 [[index]]
 
+[首页](../index)
+
 #CREATE
 --
 ```sql
