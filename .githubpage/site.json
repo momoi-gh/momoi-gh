@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "engineVersion": "1.1.1",
+  "site": {
+    "title": "Obsidian GitHubPage 演示与发布指南",
+    "baseUrl": "https://cosmosmount.github.io/obsidian-githubpage",
+    "language": "zh-CN"
+  },
+  "content": {
+    "root": ".",
+    "exclude": [
+      "README.md",
+      "node_modules/**",
+      "_site/**"
+    ],
+    "assetExtensions": [
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".webp",
+      ".svg",
+      ".pdf",
+      ".mp3",
+      ".mp4",
+      ".webm"
+    ]
+  },
+  "theme": {
+    "path": ".githubpage/theme"
+  }
+}

@@ -1,0 +1,68 @@
+name: Build and deploy GitHubPage
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Read the pinned renderer version
+        id: renderer
+        run: |
+          VERSION=$(node -e "const fs=require('fs');console.log(JSON.parse(fs.readFileSync('.githubpage/site.json','utf8')).engineVersion)")
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Validate and build
+        env:
+          ENGINE_VERSION: ${{ steps.renderer.outputs.version }}
+        run: |
+          CLI_DIR="${RUNNER_TEMP}/githubpage-cli"
+          mkdir -p "${CLI_DIR}"
+          npm install --prefix "${CLI_DIR}" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund "@obsidian-githubpage/cli@${ENGINE_VERSION}"
+          node "${CLI_DIR}/node_modules/@obsidian-githubpage/cli/dist/index.cjs" validate --root .
+          node "${CLI_DIR}/node_modules/@obsidian-githubpage/cli/dist/index.cjs" build --root . --output _site
+      - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+      - uses: actions/upload-artifact@v6
+        if: github.event_name == 'pull_request'
+        with:
+          name: githubpage-${{ github.sha }}
+          path: _site
+          if-no-files-found: error
+      - uses: actions/upload-pages-artifact@v4
+        if: github.event_name != 'pull_request'
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
