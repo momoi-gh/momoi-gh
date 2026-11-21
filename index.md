@@ -2,5 +2,5 @@
 layout: default
 title: 首页
 ---
-[SQLDDL](DDL.md)
-[[t1]]
+[SQLDDL](orasql/DDL.md)
+[t1](t1)
