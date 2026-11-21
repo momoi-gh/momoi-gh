@@ -1,5 +1,7 @@
+[[index]]
 #CREATE
 --
+```sql
  创建部门表
 CREATE TABLE dept (
     deptno NUMBER(2) PRIMARY KEY,
@@ -18,10 +20,14 @@ CREATE TABLE emp (
     deptno   NUMBER(2),
     CONSTRAINT fk_emp_dept FOREIGN KEY (deptno) REFERENCES dept(deptno)
 );
+```
+
 
 ---
 #INSERT
 --
+```sql
+
 INSERT INTO dept (deptno, dname, loc) VALUES (10, 'ACCOUNTING', 'NEW YORK');
 INSERT INTO dept (deptno, dname, loc) VALUES (20, 'RESEARCH',   'DALLAS');
 INSERT INTO dept (deptno, dname, loc) VALUES (30, 'SALES',      'CHICAGO');
@@ -36,25 +42,28 @@ INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
 VALUES (7839, 'KING', 'PRESIDENT', NULL, DATE '1981-11-17', 5000, NULL, 10);
 
 COMMIT;
-
+```
 ---
 #DELETE
 --
+```sql
 -- 删除员工编号为 7369 的记录
 DELETE FROM emp
 WHERE empno = 7369;
 
 COMMIT;
-
+```
 ---
 
 #JOIN
 --
 
+```sql
 SELECT e.ename, d.dname
 FROM emp e
 JOIN dept d ON e.deptno = d.deptno;
 join 添加 on 限定
+```
 
 ---
 
@@ -76,6 +85,8 @@ SELECT deptno, AVG(sal) AS avg_sal, MAX(sal) AS max_sal, MIN(sal) AS min_sal
 FROM emp
 GROUP BY deptno
 HAVING AVG(sal) > 2000;
+
+
 
 ---
 
@@ -128,32 +139,36 @@ FROM emp;
 
 ---
 
-
-
 #ALTER/DROP
 --
-### ALTER：增加列
+### ALTER：增加列**ADD**
 
-sql
 
+```sql
 ALTER TABLE emp ADD (email VARCHAR2(50));
+```
 
-### ALTER：修改列类型
+### ALTER：修改列类型**MODIFY**
 
-sql
+```sql
 
 ALTER TABLE emp MODIFY (job VARCHAR2(30));
+```
 
-### ALTER：删除列
+### ALTER：删除列**DROP**
 
-sql
 
+
+```sql
 ALTER TABLE emp DROP COLUMN email;
+```
 
 ### DROP：删除表
 
-sql
 
+
+```sql
 -- 先删有外键的员工表，再删部门表
 DROP TABLE emp;
 DROP TABLE dept;
+```
