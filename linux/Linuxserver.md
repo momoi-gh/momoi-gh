@@ -7,5 +7,5 @@ aliases:
 
 [[podman]]
 
-[[linux常用指令]]
+[[linuxcmd]]
 

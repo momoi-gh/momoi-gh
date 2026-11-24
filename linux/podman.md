@@ -10,4 +10,4 @@ podman ps -a                 # 所有容器（含已停止）\
 podman logs -f bs-postgres   # 实时日志，Ctrl+C 退出\
 podman inspect bs-postgres --format '{{.State.Health.Status}}'\
 podman port bs-postgres      # 端口映射\
-[[SQL/pgsql]]
+[[SQL/psql/pgsql]]
